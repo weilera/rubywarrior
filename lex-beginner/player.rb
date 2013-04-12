@@ -1,44 +1,35 @@
 class Player
 def play_turn(warrior)
 
-@direction ||= :backward	
 
-if warrior.feel(@direction).wall? 
-  @direction = flip(@direction)
-end
 
-if warrior.feel(@direction).empty?
+if warrior.feel.empty?
   	#nothing in direction
     if ((warrior.health < 20) and (@health <= warrior.health))
     	# low health and not hit
         warrior.rest!
     else
     	if warrior.health > 10
-          warrior.walk!(@direction)
+          warrior.walk!
         else
-          warrior.walk!(flip(@direction))
+          warrior.walk!
         end
     end
 else
     #something in direction
-
-    if warrior.feel(@direction).captive? 
-    	warrior.rescue!(@direction)
+    if warrior.feel.wall? 
+       warrior.pivot!
+    end
+    if warrior.feel.captive? 
+    	warrior.rescue!
     else
-      warrior.attack!(@direction)
+      #default ATTACK!!
+      warrior.attack!
     end
 end
 @health = warrior.health
 end #end play_turn
 
-def flip(direction)
-  case 
-  when direction == :forward
-  	direction = :backward
-  when direction == :backward
-  	direction = :forward
-  end 
-end #end flip
 
 
 end  #class
