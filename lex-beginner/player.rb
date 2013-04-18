@@ -30,10 +30,12 @@ class Player
       @warrior.rest!
       @action_taken = true
     else
-      if @warrior.health <= 12
-        puts  "low health and hit - > not resting -> retreat"
-        @warrior.walk!(:backward)
-        @action_taken = true
+      if @warrior.health <= 6
+        if @warrior.feel.empty?
+          puts  "low health and hit - > not resting -> retreat"
+          @warrior.walk!(:backward)
+          @action_taken = true
+        end
       else
         puts "rest not needed"
       end
