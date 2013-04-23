@@ -1,6 +1,12 @@
 class Player
   def play_turn(warrior)
-  	warrior.walk!(warrior.direction_of_stairs)
+  	direction = warrior.direction_of_stairs
+  	if warrior.feel(direction).enemy?
+  		warrior.attack!(direction)
+  	else
+  	    warrior.walk!(direction)
+  	end
+  	
     # add your code here
   end
 end
